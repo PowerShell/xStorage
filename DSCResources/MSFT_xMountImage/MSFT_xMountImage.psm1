@@ -90,8 +90,9 @@ function Set-TargetResource
             $Image = Mount-DiskImage -ImagePath $ImagePath -PassThru | Get-Volume
         }
 
-        #Verify drive letter        
-        $CimVolume = Get-CimInstance -ClassName Win32_Volume | where {$_.DeviceId -eq $Image.ObjectId}
+        #Verify drive letter. ObjectId is more verbose than DeviceId in Windows 10 Anniversary Edition, look for
+        #DeviceId in the ObjectId string to match volumes.
+        $CimVolume = Get-CimInstance -ClassName Win32_Volume | where {$Image.ObjectId.IndexOf($_.DeviceId) -ne -1}
         If($CimVolume.DriveLetter -ne $DriveLetter)
         {
             Write-Verbose "Drive letter does not match expected value. Expected DriveLetter $DriveLetter Actual DriverLetter $($CimVolume.DriveLetter)"
