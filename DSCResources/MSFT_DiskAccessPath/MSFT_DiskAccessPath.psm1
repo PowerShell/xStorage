@@ -519,7 +519,7 @@ function Set-TargetResource
     } # if
 
     # Get the current partition state for NoDefaultDriveLetter
-    $assignedPartition = $partition |
+    $assignedPartition = Get-Partition -PartitionNumber $partition.PartitionNumber |
         Where-Object -Property AccessPaths -Contains -Value $AccessPath
 
         if ($assignedPartition.NoDefaultDriveLetter -ne $NoDefaultDriveLetter)
