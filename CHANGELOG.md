@@ -8,6 +8,9 @@
   [Issue #192](https://github.com/PowerShell/StorageDsc/issues/192).
 - Clean up module manifest to correct Author and Company - fixes
   [Issue #191](https://github.com/PowerShell/StorageDsc/issues/191).
+- Fix a bug where current state of NoDefaultDriveLetter state
+  is not handled. Added a proper Get-Partition to variable line -fixes
+  [Issue #145](https://github.com/PowerShell/StorageDsc/issues/145).
 
 ## 4.5.0.0
 
