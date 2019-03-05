@@ -518,8 +518,11 @@ function Set-TargetResource
             ) -join '' )
     } # if
 
+    # Get the partitions on the disk
+    $partition = $disk | Get-Partition -ErrorAction SilentlyContinue
+
     # Get the current partition state for NoDefaultDriveLetter
-    $assignedPartition = Get-Partition -PartitionNumber $partition.PartitionNumber |
+    $assignedPartition = $partition |
         Where-Object -Property AccessPaths -Contains -Value $AccessPath
 
         if ($assignedPartition.NoDefaultDriveLetter -ne $NoDefaultDriveLetter)
